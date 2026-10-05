@@ -1,0 +1,709 @@
+<!-- Header Navigation -->
+<header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#0b0f19]/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('order')">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 via-brand-600 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-600/30">
+                <i class="fa-solid fa-shirt"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-white via-slate-200 to-brand-400 bg-clip-text text-transparent">
+                    Jersey Ma'had
+                </h1>
+                <p class="text-xs text-slate-400 font-medium">Sistem Pre-Order Official V2</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex items-center bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
+            <button id="nav-btn-order" onclick="switchTab('order')" class="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-brand-600 text-white shadow-md">
+                <i class="fa-solid fa-cart-shopping text-xs"></i>
+                <span>Pemesanan</span>
+            </button>
+            <button id="nav-btn-admin" onclick="switchTab('admin')" class="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/50">
+                <i class="fa-solid fa-user-shield text-xs"></i>
+                <span>Admin Panel</span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    
+    <!-- SECTION 1: PUBLIC ORDER FORM -->
+    <section id="section-order" class="space-y-8">
+        <!-- Hero Banner -->
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 border border-brand-900/40 p-6 sm:p-8 shadow-2xl">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20 mb-3">
+                    <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span> Open Pre-Order Active
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                    Pesan Jersey Eksklusif Ma'had
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Lengkapi identitas pemesanan, kustomisasi nama & nomor punggung impianmu, dan selesaikan pembayaran dengan praktis.
+                </p>
+            </div>
+        </div>
+
+        <form id="orderForm" onsubmit="handleFormSubmit(event)" class="space-y-8">
+            
+            <!-- 1. Data Pemesan -->
+            <div class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-400 flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="font-bold text-lg text-white">Data Pemesan</h3>
+                        <p class="text-xs text-slate-400">Isi data identitas lengkap Anda untuk pendataan</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            Nama Lengkap <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" id="inputNama" required placeholder="Contoh: Muhammad Ammar" 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all placeholder:text-slate-600">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                            Angkatan / Status <span class="text-rose-500">*</span>
+                        </label>
+                        <select id="inputAngkatan" required 
+                            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+                            <option value="" disabled selected>-- Pilih Angkatan / Status --</option>
+                            <option value="Angkatan 22">Angkatan 22</option>
+                            <option value="Angkatan 23">Angkatan 23</option>
+                            <option value="Angkatan 24">Angkatan 24</option>
+                            <option value="Angkatan 25">Angkatan 25</option>
+                            <option value="Angkatan 26">Angkatan 26</option>
+                            <option value="Alumni">Alumni</option>
+                            <option value="Asatidz">Asatidz</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Spesifikasi Jersey & Ukuran -->
+            <div class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-400 flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Spesifikasi & Ukuran</h3>
+                            <p class="text-xs text-slate-400">Pilih varian kelengkapan, jenis lengan, dan ukuran baju</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Reference Table Banner -->
+                <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-xs space-y-2">
+                    <div class="font-semibold text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-tags text-brand-400"></i> Matriks Daftar Harga Pre-Order:
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-slate-400 font-mono text-[11px]">
+                        <div class="bg-slate-900 p-2 rounded border border-slate-800/60">
+                            <div class="text-slate-300 font-bold">Tanpa Celana + Short</div>
+                            <div class="text-cyan-400 font-bold">Rp 100.000</div>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded border border-slate-800/60">
+                            <div class="text-slate-300 font-bold">Tanpa Celana + Long</div>
+                            <div class="text-cyan-400 font-bold">Rp 110.000</div>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded border border-slate-800/60">
+                            <div class="text-slate-300 font-bold">Set Lengkap + Short</div>
+                            <div class="text-cyan-400 font-bold">Rp 150.000</div>
+                        </div>
+                        <div class="bg-slate-900 p-2 rounded border border-slate-800/60">
+                            <div class="text-slate-300 font-bold">Set Lengkap + Long</div>
+                            <div class="text-cyan-400 font-bold">Rp 160.000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Pilihan Celana -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">
+                            Kelengkapan Set <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="relative flex flex-col items-center justify-center p-4 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 transition-all text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-950/40">
+                                <input type="radio" name="pilihanCelana" value="Tanpa Celana" checked onchange="calculatePrice()" class="sr-only">
+                                <i class="fa-solid fa-shirt text-slate-400 text-lg mb-1"></i>
+                                <span class="text-sm font-bold text-white">Tanpa Celana</span>
+                                <span class="text-xs text-brand-400 font-semibold mt-1">Rp 100.000 / Rp 110.000</span>
+                                <span class="text-[10px] text-slate-400 mt-0.5">Atasan Saja</span>
+                            </label>
+                            <label class="relative flex flex-col items-center justify-center p-4 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 transition-all text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-950/40">
+                                <input type="radio" name="pilihanCelana" value="Set Lengkap" onchange="calculatePrice()" class="sr-only">
+                                <i class="fa-solid fa-vest text-slate-400 text-lg mb-1"></i>
+                                <span class="text-sm font-bold text-white">Set Lengkap</span>
+                                <span class="text-xs text-cyan-400 font-semibold mt-1">Rp 150.000 / Rp 160.000</span>
+                                <span class="text-[10px] text-emerald-400 font-medium mt-0.5">+ Dgn Celana</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Jenis Lengan -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">
+                            Jenis Lengan <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="relative flex flex-col items-center justify-center p-4 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 transition-all text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-950/40">
+                                <input type="radio" name="jenisLengan" value="Lengan Pendek" checked onchange="calculatePrice()" class="sr-only">
+                                <i class="fa-solid fa-shirt text-slate-400 text-lg mb-1"></i>
+                                <span class="text-sm font-bold text-white">Lengan Pendek</span>
+                                <span class="text-xs text-emerald-400 font-semibold mt-1">Harga Dasar</span>
+                            </label>
+                            <label class="relative flex flex-col items-center justify-center p-4 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 transition-all text-center has-[:checked]:border-brand-500 has-[:checked]:bg-brand-950/40">
+                                <input type="radio" name="jenisLengan" value="Lengan Panjang" onchange="calculatePrice()" class="sr-only">
+                                <i class="fa-solid fa-person text-slate-400 text-lg mb-1"></i>
+                                <span class="text-sm font-bold text-white">Lengan Panjang</span>
+                                <span class="text-xs text-amber-400 font-semibold mt-1">+ Rp 10.000</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ukuran Baju -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                            Ukuran Baju <span class="text-rose-500">*</span>
+                        </label>
+                        <span class="text-[11px] text-slate-400">Ukuran 3XL - 5XL dikenakan surcharge +Rp 10.000</span>
+                    </div>
+
+                    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2.5">
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="S" checked onchange="calculatePrice()" class="sr-only">
+                            <span>S</span>
+                            <span class="text-[9px] text-slate-400 font-normal">Rp 0</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="M" onchange="calculatePrice()" class="sr-only">
+                            <span>M</span>
+                            <span class="text-[9px] text-slate-400 font-normal">Rp 0</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="L" onchange="calculatePrice()" class="sr-only">
+                            <span>L</span>
+                            <span class="text-[9px] text-slate-400 font-normal">Rp 0</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="XL" onchange="calculatePrice()" class="sr-only">
+                            <span>XL</span>
+                            <span class="text-[9px] text-slate-400 font-normal">Rp 0</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="XXL" onchange="calculatePrice()" class="sr-only">
+                            <span>XXL</span>
+                            <span class="text-[9px] text-slate-400 font-normal">Rp 0</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="3XL" onchange="calculatePrice()" class="sr-only">
+                            <span>3XL</span>
+                            <span class="text-[9px] text-amber-400 font-semibold">+10k</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="4XL" onchange="calculatePrice()" class="sr-only">
+                            <span>4XL</span>
+                            <span class="text-[9px] text-amber-400 font-semibold">+10k</span>
+                        </label>
+                        <label class="relative flex flex-col items-center justify-center py-3 border border-slate-800 rounded-xl bg-slate-950 cursor-pointer hover:border-brand-500 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-600 text-white font-bold transition-all text-sm">
+                            <input type="radio" name="ukuranBaju" value="5XL" onchange="calculatePrice()" class="sr-only">
+                            <span>5XL</span>
+                            <span class="text-[9px] text-amber-400 font-semibold">+10k</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Kustomisasi Jersey (Nama & Nomor Punggung 1-200) -->
+            <div class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-400 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Kustomisasi Nama & Nomor Punggung</h3>
+                            <p class="text-xs text-slate-400">Nomor 1–200 dengan Real-Time Locking</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="fetchLockedNumbers()" class="text-xs text-brand-400 hover:text-brand-300 flex items-center gap-1 font-medium bg-brand-950/60 px-3 py-1.5 rounded-lg border border-brand-800/40">
+                        <i class="fa-solid fa-rotate text-[10px]" id="refresh-spin"></i> Refresh Grid
+                    </button>
+                </div>
+
+                <!-- Nama Punggung -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                            Nama Punggung
+                        </label>
+                        <label class="inline-flex items-center gap-2 cursor-pointer text-xs text-slate-400">
+                            <input type="checkbox" id="checkTanpaNama" onchange="toggleTanpaNama(this)" class="rounded bg-slate-950 border-slate-800 text-brand-600 focus:ring-0">
+                            <span>Tanpa Nama Punggung</span>
+                        </label>
+                    </div>
+                    <input type="text" id="inputNamaPunggung" placeholder="Contoh: MAHMUD"
+                        class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all uppercase placeholder:normal-case placeholder:text-slate-600">
+                </div>
+
+                <!-- Nomor Punggung Selection -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                            Pilih Nomor Punggung <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="flex items-center gap-4 text-xs font-medium">
+                            <span class="flex items-center gap-1.5 text-slate-300"><span class="w-2.5 h-2.5 rounded-full bg-slate-800 border border-slate-600"></span> Tersedia</span>
+                            <span class="flex items-center gap-1.5 text-brand-400"><span class="w-2.5 h-2.5 rounded-full bg-brand-600"></span> Dipilih</span>
+                            <span class="flex items-center gap-1.5 text-rose-400"><span class="w-2.5 h-2.5 rounded-full bg-rose-950 border border-rose-800"></span> Terpakai</span>
+                        </div>
+                    </div>
+
+                    <!-- Option: Tanpa Nomor -->
+                    <div class="mb-4">
+                        <button type="button" id="btn-tanpa-nomor" onclick="selectNumber('Tanpa Nomor')"
+                            class="w-full py-2.5 px-4 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 text-xs font-semibold hover:border-brand-500 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-ban"></i> Tanpa Nomor Punggung
+                        </button>
+                    </div>
+
+                    <!-- Grid 1-200 Container -->
+                    <div id="numberGrid" class="grid grid-cols-5 sm:grid-cols-10 gap-2 max-h-64 overflow-y-auto p-2 bg-slate-950 border border-slate-800/80 rounded-xl">
+                        <!-- JS grid buttons generated automatically -->
+                    </div>
+                    <input type="hidden" id="selectedNoPunggung" required>
+                </div>
+            </div>
+
+            <!-- 4. Pembayaran & Upload Bukti Transfer -->
+            <div class="bg-slate-900/80 border border-slate-800/90 rounded-2xl p-5 sm:p-7 shadow-xl space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600/20 text-brand-400 flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h3 class="font-bold text-lg text-white">Pembayaran & Bukti Transfer</h3>
+                        <p class="text-xs text-slate-400">Transfer ke rekening resmi Ma'had dan unggah buktinya</p>
+                    </div>
+                </div>
+
+                <!-- Payment Info Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                        <div class="text-xs text-slate-400 font-semibold uppercase">Bank BSI</div>
+                        <div class="text-lg font-mono font-bold text-white tracking-wider">7123-4567-89</div>
+                        <div class="text-xs text-slate-400">a.n. Panitia Jersey Ma'had</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+                        <div class="text-xs text-slate-400 font-semibold uppercase">DANA / GoPay</div>
+                        <div class="text-lg font-mono font-bold text-white tracking-wider">0812-3456-7890</div>
+                        <div class="text-xs text-slate-400">a.n. Bendahara Ma'had</div>
+                    </div>
+                </div>
+
+                <!-- Upload Proof Input -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        Unggah Bukti Transfer (Gambar) <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="file" id="inputBukti" accept="image/*" required onchange="handleImageUpload(event)"
+                        class="block w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-600 file:text-white hover:file:bg-brand-500 cursor-pointer bg-slate-950 rounded-xl border border-slate-800 p-2">
+                    
+                    <div id="imagePreviewContainer" class="hidden mt-4">
+                        <p class="text-xs text-slate-400 mb-2">Pratinjau Bukti Transfer:</p>
+                        <img id="imagePreview" src="" class="max-h-48 rounded-xl border border-slate-700 object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Breakdown & Checkout Card -->
+            <div class="bg-gradient-to-r from-slate-900 via-brand-950/80 to-slate-900 border border-brand-800/60 rounded-2xl p-6 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    <span class="text-xs uppercase font-semibold text-slate-400 tracking-wider">Total Tagihan Pemesanan</span>
+                    <div class="text-3xl font-extrabold text-white font-mono mt-1" id="displayTotalHarga">
+                        Rp 100.000
+                    </div>
+                    <div class="text-xs text-slate-400 mt-1" id="displayRincian">
+                        Tanpa Celana • Lengan Pendek • Ukuran S
+                    </div>
+                </div>
+
+                <button type="submit" id="btnSubmit" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-cyan-500 hover:from-brand-500 hover:to-cyan-400 text-white font-bold text-base shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Kirim Pesanan Sekarang</span>
+                </button>
+            </div>
+
+        </form>
+    </section>
+
+    <!-- SECTION 2: ADMIN DASHBOARD -->
+    <section id="section-admin" class="hidden space-y-6">
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h2 class="text-xl font-bold text-white">Admin Dashboard - Verifikasi Pesanan</h2>
+                <p class="text-xs text-slate-400 mt-1">Kelola dan verifikasi pembayaran pre-order jersey</p>
+            </div>
+            <button onclick="fetchOrders()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl flex items-center gap-2">
+                <i class="fa-solid fa-arrows-rotate" id="admin-spin"></i> Refresh Data
+            </button>
+        </div>
+
+        <!-- Orders Table Container -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                            <th class="p-4">ID / Waktu</th>
+                            <th class="p-4">Nama & Angkatan</th>
+                            <th class="p-4">Detail Varian</th>
+                            <th class="p-4">Punggung</th>
+                            <th class="p-4">Total</th>
+                            <th class="p-4">Bukti</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+                        <tr>
+                            <td colspan="8" class="p-8 text-center text-slate-500">Klik "Refresh Data" untuk memuat pesanan.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+    <p>© 2026 Jersey Ma'had V2 - Google Apps Script Backend Integrated</p>
+</footer>
+
+<!-- Image Viewer Modal -->
+<div id="imageModal" class="fixed inset-0 z-50 bg-black/80 hidden items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 max-w-lg w-full space-y-4">
+        <div class="flex justify-between items-center">
+            <h3 class="font-bold text-white text-sm">Bukti Transfer Pembayaran</h3>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+        </div>
+        <img id="modalImg" src="" class="w-full rounded-xl max-h-[70vh] object-contain bg-slate-950">
+    </div>
+</div>
+
+<!-- JS Scripts -->
+<script>
+    // ==========================================
+    // CONFIGURATION URL backend Google Apps Script
+    // ==========================================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxe5To3efzPK3dBEIKTS3ETFbIeLaYtx1xu8UPP2WZD-usd90w34d2psyB8XyN3LcWO/exec"; // Ganti URL ini dengan URL Web App Apps Script Anda!
+
+    let lockedNumbers = [];
+    let selectedNumberVal = null;
+    let base64Image = "";
+    let fileNameImage = "";
+
+    // Initial Load
+    document.addEventListener("DOMContentLoaded", () => {
+        renderNumberGrid();
+        calculatePrice();
+        fetchLockedNumbers();
+    });
+
+    // Tab Switching Function
+    function switchTab(tab) {
+        const secOrder = document.getElementById("section-order");
+        const secAdmin = document.getElementById("section-admin");
+        const btnOrder = document.getElementById("nav-btn-order");
+        const btnAdmin = document.getElementById("nav-btn-admin");
+
+        if (tab === 'order') {
+            secOrder.classList.remove("hidden");
+            secAdmin.classList.add("hidden");
+            btnOrder.className = "flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-brand-600 text-white shadow-md";
+            btnAdmin.className = "flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/50";
+        } else {
+            secOrder.classList.add("hidden");
+            secAdmin.classList.remove("hidden");
+            btnAdmin.className = "flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 bg-brand-600 text-white shadow-md";
+            btnOrder.className = "flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-slate-800/50";
+            fetchOrders();
+        }
+    }
+
+    // Render Grid Nomor 1-200
+    function renderNumberGrid() {
+        const container = document.getElementById("numberGrid");
+        container.innerHTML = "";
+
+        for (let i = 1; i <= 200; i++) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.id = `num-btn-${i}`;
+            const isLocked = lockedNumbers.includes(i);
+
+            if (isLocked) {
+                btn.className = "py-2 rounded-lg text-xs font-bold border border-rose-950 bg-rose-950/40 text-rose-500 cursor-not-allowed opacity-60";
+                btn.disabled = true;
+                btn.innerText = i;
+            } else if (selectedNumberVal === i) {
+                btn.className = "py-2 rounded-lg text-xs font-bold bg-brand-600 text-white border border-brand-400 shadow-md";
+                btn.onclick = () => selectNumber(i);
+                btn.innerText = i;
+            } else {
+                btn.className = "py-2 rounded-lg text-xs font-bold bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition-all";
+                btn.onclick = () => selectNumber(i);
+                btn.innerText = i;
+            }
+            container.appendChild(btn);
+        }
+    }
+
+    // Fetch locked numbers from Apps Script backend
+    async function fetchLockedNumbers() {
+        const spin = document.getElementById("refresh-spin");
+        if (spin) spin.classList.add("fa-spin");
+
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getLockedNumbers`);
+            const json = await res.json();
+            if (json.status === "success" && Array.isArray(json.locked)) {
+                lockedNumbers = json.locked;
+                renderNumberGrid();
+            }
+        } catch (err) {
+            console.log("Catatan: Mode offline/Backend belum dihubungkan. Menggunakan grid lokal.", err);
+        } finally {
+            if (spin) spin.classList.remove("fa-spin");
+        }
+    }
+
+    // Number selection logic
+    function selectNumber(num) {
+        selectedNumberVal = num;
+        document.getElementById("selectedNoPunggung").value = num;
+
+        const btnTanpa = document.getElementById("btn-tanpa-nomor");
+        if (num === 'Tanpa Nomor') {
+            btnTanpa.className = "w-full py-2.5 px-4 rounded-xl border border-brand-500 bg-brand-600 text-white text-xs font-bold shadow-md transition-all flex items-center justify-center gap-2";
+        } else {
+            btnTanpa.className = "w-full py-2.5 px-4 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 text-xs font-semibold hover:border-brand-500 transition-all flex items-center justify-center gap-2";
+        }
+        renderNumberGrid();
+    }
+
+    // Toggle Tanpa Nama
+    function toggleTanpaNama(chk) {
+        const inputNamaP = document.getElementById("inputNamaPunggung");
+        if (chk.checked) {
+            inputNamaP.value = "Tanpa Nama";
+            inputNamaP.disabled = true;
+            inputNamaP.classList.add("opacity-50");
+        } else {
+            inputNamaP.value = "";
+            inputNamaP.disabled = false;
+            inputNamaP.classList.remove("opacity-50");
+        }
+    }
+
+    // Calculate Total Price
+    function calculatePrice() {
+        const celana = document.querySelector('input[name="pilihanCelana"]:checked').value;
+        const lengan = document.querySelector('input[name="jenisLengan"]:checked').value;
+        const ukuran = document.querySelector('input[name="ukuranBaju"]:checked').value;
+
+        let total = 100000;
+
+        if (celana === "Set Lengkap") total += 50000;
+        if (lengan === "Lengan Panjang") total += 10000;
+        if (["3XL", "4XL", "5XL"].includes(ukuran)) total += 10000;
+
+        document.getElementById("displayTotalHarga").innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        document.getElementById("displayRincian").innerText = `${celana} • ${lengan} • Ukuran ${ukuran}`;
+        return total;
+    }
+
+    // Image Base64 Upload Handler
+    function handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        fileNameImage = file.name;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            base64Image = evt.target.result;
+            document.getElementById("imagePreview").src = base64Image;
+            document.getElementById("imagePreviewContainer").classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Submit Form Handler
+    async function handleFormSubmit(e) {
+        e.preventDefault();
+
+        if (!selectedNumberVal) {
+            alert("Harap pilih Nomor Punggung terlebih dahulu!");
+            return;
+        }
+
+        const btn = document.getElementById("btnSubmit");
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Memproses Pesanan...`;
+
+        const orderPayload = {
+            id: "ORD" + Date.now().toString().slice(-6),
+            timestamp: new Date().toISOString(),
+            nama: document.getElementById("inputNama").value,
+            angkatan: document.getElementById("inputAngkatan").value,
+            celana: document.querySelector('input[name="pilihanCelana"]:checked').value,
+            lengan: document.querySelector('input[name="jenisLengan"]:checked').value,
+            ukuran: document.querySelector('input[name="ukuranBaju"]:checked').value,
+            namaPunggung: document.getElementById("inputNamaPunggung").value || "Tanpa Nama",
+            noPunggung: selectedNumberVal,
+            totalHarga: calculatePrice(),
+            buktiBase64: base64Image,
+            fileName: fileNameImage,
+            status: "Pending"
+        };
+
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "createOrder",
+                    data: orderPayload
+                })
+            });
+
+            const result = await response.json();
+            if (result.status === "success") {
+                alert(`Pesanan Berhasil Dikirim!\nID Pesanan: ${orderPayload.id}`);
+                document.getElementById("orderForm").reset();
+                document.getElementById("imagePreviewContainer").classList.add("hidden");
+                selectedNumberVal = null;
+                fetchLockedNumbers();
+            } else {
+                alert("Gagal mengirim pesanan: " + result.message);
+            }
+        } catch (err) {
+            alert("Terjadi kesalahan pengiriman. Pastikan SCRIPT_URL sudah dikonfigurasi.");
+            console.error(err);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>Kirim Pesanan Sekarang</span>`;
+        }
+    }
+
+    // Admin: Fetch Orders
+    async function fetchOrders() {
+        const spin = document.getElementById("admin-spin");
+        if (spin) spin.classList.add("fa-spin");
+
+        const tbody = document.getElementById("ordersTableBody");
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data pesanan...</td></tr>`;
+
+        try {
+            const res = await fetch(`${SCRIPT_URL}?action=getOrders`);
+            const json = await res.json();
+
+            if (json.status === "success" && json.orders) {
+                tbody.innerHTML = "";
+                if (json.orders.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-500">Belum ada data pesanan.</td></tr>`;
+                    return;
+                }
+
+                json.orders.forEach(o => {
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-slate-800/40 border-b border-slate-800/60";
+
+                    let badgeStatus = `<span class="px-2 py-1 rounded-md text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Pending</span>`;
+                    if (o.status === "Valid") badgeStatus = `<span class="px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Valid</span>`;
+                    if (o.status === "Ditolak") badgeStatus = `<span class="px-2 py-1 rounded-md text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Ditolak</span>`;
+
+                    tr.innerHTML = `
+                        <td class="p-4 font-mono">
+                            <div class="font-bold text-white">${o.id}</div>
+                            <div class="text-[10px] text-slate-500">${new Date(o.timestamp).toLocaleString('id-ID')}</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-bold text-slate-200">${o.nama}</div>
+                            <div class="text-[10px] text-slate-400">${o.angkatan}</div>
+                        </td>
+                        <td class="p-4">
+                            <div>${o.celana} (${o.lengan})</div>
+                            <div class="text-[10px] text-brand-400 font-semibold">Ukuran ${o.ukuran}</div>
+                        </td>
+                        <td class="p-4 font-mono">
+                            <div class="font-bold text-cyan-400">#${o.noPunggung}</div>
+                            <div class="text-[10px] text-slate-400">${o.namaPunggung}</div>
+                        </td>
+                        <td class="p-4 font-mono font-bold text-white">
+                            Rp ${(Number(o.totalHarga) || 0).toLocaleString('id-ID')}
+                        </td>
+                        <td class="p-4">
+                            ${o.buktiBase64 ? `<button onclick="openModal('${o.buktiBase64}')" class="text-brand-400 hover:underline"><i class="fa-solid fa-image"></i> Lihat</button>` : '-'}
+                        </td>
+                        <td class="p-4">${badgeStatus}</td>
+                        <td class="p-4 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button onclick="updateOrderStatus('${o.id}', 'Valid')" class="p-1.5 rounded bg-emerald-950 hover:bg-emerald-800 text-emerald-400 border border-emerald-800" title="Verifikasi Valid"><i class="fa-solid fa-check"></i></button>
+                                <button onclick="updateOrderStatus('${o.id}', 'Ditolak')" class="p-1.5 rounded bg-rose-950 hover:bg-rose-800 text-rose-400 border border-rose-800" title="Tolak Pesanan"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        } catch (err) {
+            tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-rose-400">Gagal memuat data dari Apps Script Backend.</td></tr>`;
+        } finally {
+            if (spin) spin.classList.remove("fa-spin");
+        }
+    }
+
+    // Admin: Update Status Handler
+    async function updateOrderStatus(id, status) {
+        if (!confirm(`Ubah status ID ${id} menjadi ${status}?`)) return;
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "updateStatus",
+                    id: id,
+                    status: status
+                })
+            });
+            const json = await res.json();
+            if (json.status === "success") {
+                fetchOrders();
+            } else {
+                alert("Gagal memperbarui status: " + json.message);
+            }
+        } catch (e) {
+            alert("Gagal terhubung ke backend.");
+        }
+    }
+
+    // Modal Image Viewer
+    function openModal(src) {
+        document.getElementById("modalImg").src = src;
+        document.getElementById("imageModal").classList.remove("hidden");
+        document.getElementById("imageModal").classList.add("flex");
+    }
+    function closeModal() {
+        document.getElementById("imageModal").classList.add("hidden");
+        document.getElementById("imageModal").classList.remove("flex");
+    }
+</script>
